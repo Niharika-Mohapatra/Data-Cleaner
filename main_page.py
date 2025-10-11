@@ -74,12 +74,14 @@ if uploaded_files:
         return merged
 
     if st.session_state.merge_bool:
+        st.session_state.dataset = None
         merged_df = merge_all(datasets)
         st.subheader("Merged Dataset")
         st.dataframe(merged_df.head())
         st.session_state.dataset = merged_df
 
     if st.session_state.stack_bool:
+        st.session_state.dataset = None
         stacked_df = pd.concat(datasets, ignore_index=True)
         st.subheader("Stacked_Dataset")
         st.dataframe(stacked_df.head())
