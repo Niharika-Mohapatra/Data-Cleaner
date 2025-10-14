@@ -82,7 +82,7 @@ if uploaded_files:
 
     if st.session_state.stack_bool:
         st.session_state.dataset = None
-        stacked_df = pd.concat(datasets, ignore_index=True, axis=1)
+        stacked_df = pd.concat(datasets, keys=[dataset.columns for dataset in datasets], axis=1)
         st.subheader("Stacked_Dataset")
         st.dataframe(stacked_df.head())
         st.session_state.dataset = stacked_df
