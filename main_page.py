@@ -105,7 +105,7 @@ if st.session_state.step2_bool:
     dataset = dataset.applymap(lambda x: x.strip().title() if isinstance(x, str) else x)
     
     # Remove duplicates
-    st.button("Remove duplicates?", on_click=lambda: st.session_state.update(dupes_bool=True))
+    st.sidebar.button("Remove duplicates?", on_click=lambda: st.session_state.update(dupes_bool=True))
 
     if st.session_state.dupes_bool:
             before_dupes = len(dataset)
