@@ -101,8 +101,8 @@ if st.session_state.step2_bool:
     dataset = st.session_state.dataset.copy()
     
     # Clean formatting
-    #dataset.columns = [col.title() for col in dataset.columns]
-    #dataset = dataset.applymap(lambda x: x.strip().title() if isinstance(x, str) else x)
+    dataset.columns = [col.title() for col in dataset.columns]
+    dataset = dataset.applymap(lambda x: x.strip().title() if isinstance(x, str) else x)
     
     # Remove duplicates
     st.button("Remove duplicates?", on_click=lambda: st.session_state.update(dupes_bool=True))
