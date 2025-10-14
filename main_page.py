@@ -74,6 +74,10 @@ if uploaded_files:
         return merged
 
     if st.session_state.merge_bool:
+        combine_type = st.radio(
+            "How do you want to combine these datasets?",
+            ["Row-wise (add more rows)", "Column-wise (add more columns)"]
+        )
         st.session_state.dataset = None
         merged_df = merge_all(datasets)
         st.subheader("Merged Dataset")
