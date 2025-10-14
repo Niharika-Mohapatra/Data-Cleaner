@@ -100,7 +100,7 @@ if st.session_state.step2_bool:
     dataset = st.session_state.dataset.copy()
     
     # Clean formatting
-    dataset.columns = [col.strip().title() for col in dataset.columns]
+    dataset.columns = [col.title() for col in dataset.columns]
     dataset = dataset.applymap(lambda x: x.strip().title() if isinstance(x, str) else x)
     
     # Remove duplicates
