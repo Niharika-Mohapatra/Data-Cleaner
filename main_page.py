@@ -182,8 +182,7 @@ if st.session_state.step2_bool:
         st.success(f"Dropped columns: {cols_to_drop}")
 
     # Filter rows
-    filter_col = st.radio("Select column to filter",
-                 list(dataset.columns))
+    filter_col = st.pills("Select column to filter", list(dataset.columns), selection_mode="multi")
     
     if filter_col != "None":
         unique_vals = dataset[filter_col].dropna().unique()
