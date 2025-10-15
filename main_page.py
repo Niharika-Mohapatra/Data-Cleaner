@@ -109,7 +109,7 @@ if uploaded_files:
             for df in datasets:
                 columns.append(df.columns)  
             stacked_df = pd.concat(datasets, axis=1)
-            stacked_df.columns = columns
+            st.write(columns)
           
         st.subheader("Stacked_Dataset")
         st.dataframe(stacked_df.head())
