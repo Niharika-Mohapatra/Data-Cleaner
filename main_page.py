@@ -93,7 +93,7 @@ if uploaded_files:
     if st.session_state.stack_bool:
         st.session_state.dataset = None
 
-          combine_type = st.radio(
+        combine_type = st.radio(
             "How do you want to stack these datasets?",
             ["Row-wise", "Column-wise"]
         )
