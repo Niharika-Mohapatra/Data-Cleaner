@@ -100,8 +100,8 @@ if uploaded_files:
         
         if combine_type.startswith("Row"):
             stacked_df = pd.concat(datasets, axis=1, ignore_index=True) 
-            else:
-                stacked_df = pd.concat(datasets, axis=0, ignore_index=True)
+        else:
+            stacked_df = pd.concat(datasets, axis=0, ignore_index=True)
                 
         stacked_df.columns = [str(col) for col in stacked_df.columns]
        
