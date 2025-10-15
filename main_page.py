@@ -185,7 +185,7 @@ if st.session_state.step2_bool:
     filter_col = st.pills("Select column to filter", list(dataset.columns), selection_mode="multi")
     
     if filter_col != "None":
-        selected_vals = st.multiselect("Select values to keep", unique_vals)
+        selected_vals = st.multiselect("Select values to keep", dataset[filter_col])
         
         if selected_vals:
             dataset = dataset[dataset[filter_col].isin(selected_vals)]
