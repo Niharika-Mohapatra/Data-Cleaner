@@ -105,8 +105,11 @@ if uploaded_files:
                 st.stop()
             stacked_df = pd.concat(datasets, axis=0, ignore_index=True) 
         else:
+            columns = []
+            for df in datasets:
+                columns.append(df.columns)  
             stacked_df = pd.concat(datasets, axis=1)
-            stacked_df.columns=[f"{outer}_{inner}" for outer, inner in stacked_df.columns]
+            stacked_df.columns = columns
           
         st.subheader("Stacked_Dataset")
         st.dataframe(stacked_df.head())
