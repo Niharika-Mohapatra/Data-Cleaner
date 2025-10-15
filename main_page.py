@@ -105,9 +105,7 @@ if uploaded_files:
                 st.stop()
             stacked_df = pd.concat(datasets, axis=0, ignore_index=True) 
         else:
-            columns = []
-            for df in datasets:
-                columns.append(list(df.columns))
+            columns = [[col for df in datasets for col in df.columns]
             stacked_df = pd.concat(datasets, axis=1)
             stacked_df.columns = columns
           
