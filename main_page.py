@@ -105,9 +105,8 @@ if uploaded_files:
                 st.stop()
             stacked_df = pd.concat(datasets, axis=0, ignore_index=True) 
         else:
-            stacked_df = pd.concat(datasets, axis=1, keys=[f"Dataset_{i+1}" for i in range(len(datasets))])
-            st.write(common_cols)
-       
+            stacked_df = pd.concat(datasets, axis=1, keys=[f"{outer}_{inner}" for outer, inner in stacked_df.columns])
+          
         st.subheader("Stacked_Dataset")
         st.dataframe(stacked_df.head())
         st.session_state.dataset = stacked_df
