@@ -66,6 +66,12 @@ if uploaded_files:
         st.subheader(f"Dataset Preview")
         st.dataframe(dataset.head())
         st.session_state.dataset = dataset
+    
+    # Finding common columns
+    common_cols = set(datasets[0].columns)
+        
+    for df in datasets[1:]:
+        common_cols &= set(df.columns)
 
     def merge_all(datasets):
         merged = datasets[0]
@@ -75,11 +81,6 @@ if uploaded_files:
 
     if st.session_state.merge_bool:
         st.session_state.dataset = None
-            
-        common_cols = set(datasets[0].columns)
-        
-        for df in datasets[1:]:
-            common_cols &= set(df.columns)
         
         if not common_cols:
             st.error("Merging cannot be done without common columns.")
@@ -99,6 +100,9 @@ if uploaded_files:
         )
         
         if combine_type.startswith("Row"):
+            if not common_cols:
+                st.error("Row-wise stacking cannot be done without common columns.")
+                st.stop()
             stacked_df = pd.concat(datasets, axis=0, ignore_index=True) 
         else:
             stacked_df = pd.concat(datasets, axis=1, ignore_index=True)
