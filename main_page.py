@@ -182,7 +182,7 @@ if st.session_state.step2_bool:
         st.success(f"Dropped columns: {cols_to_drop}")
 
     # Filter rows
-    filter_col = st.selectbox("Select column to filter",
+    filter_col = st.radio("Select column to filter",
                  list(dataset.columns))
     
     if filter_col != "None":
