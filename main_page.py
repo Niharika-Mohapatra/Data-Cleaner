@@ -75,14 +75,16 @@ if uploaded_files:
 
     if st.session_state.merge_bool:
         st.session_state.dataset = None
-
-        if combine_type.startswith("Column):
-            common_cols = set(datasets[0].columns)
-            for df in datasets[1:]:
-                common_cols &= set(df.columns)
-            if not common_cols:
-                st.error("Merging cannot be done without common columns.")
-                st.stop()
+            
+        common_cols = set(datasets[0].columns)
+        
+        for df in datasets[1:]:
+            common_cols &= set(df.columns)
+        
+        if not common_cols:
+            st.error("Merging cannot be done without common columns.")
+            st.stop()
+        
         merged_df = merge_all(datasets)
         st.subheader("Merged Dataset")
         st.dataframe(merged_df.head())
