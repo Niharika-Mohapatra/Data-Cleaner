@@ -132,13 +132,14 @@ if st.session_state.step2_bool:
     # Remove duplicates
     st.write("1. Do you want to remove duplicates?")
     st.button("Remove duplicates", on_click=lambda: st.session_state.update(dupes_bool=True))
-
+    
     if st.session_state.dupes_bool:
             before_dupes = len(dataset)
             dataset = dataset.drop_duplicates()
             after_dupes = len(dataset)
             st.session_state.dataset = dataset
             st.success(f"{before_dupes - after_dupes} duplicate values successfully removed!")
+st.divider
 
     # Missing values
     missing_strat = st.selectbox("Handle missing values:",
