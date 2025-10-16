@@ -182,7 +182,7 @@ if st.session_state.step2_bool:
         st.success(f"Dropped columns: {cols_to_drop}")
 
     # Filter rows
-    filter_col = st.pills("Select column to filter", list(dataset.columns), selection_mode="multi")
+    filter_col = st.pills("Select column to filter", list(dataset.columns))
     
     if filter_col != "None":
         selected_vals = st.multiselect("Select values to keep", dataset[filter_col])
