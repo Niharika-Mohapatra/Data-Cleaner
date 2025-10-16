@@ -144,12 +144,11 @@ if st.session_state.step2_bool:
 
     # Missing values
     st.write("Pick an option for how to deal with missing values:")
-    missing_strat = st.selectbox(
-                  ["Do nothing",
-                  "Drop rows with missing values",
-                  "Impute mean/median/mode",
-                  "Fill with custom value"],
-                )
+    missing_strat = st.selectbox(options = ["Do nothing",
+                                            "Drop rows with missing values",
+                                            "Impute mean/median/mode",
+                                             "Fill with custom value"],
+                                )
     
     if missing_strat == "Drop rows with missing values":
         dataset.dropna(inplace=True)
