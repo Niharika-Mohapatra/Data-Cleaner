@@ -176,7 +176,9 @@ if st.session_state.step2_bool:
         
         if value:
             dataset.fillna(value, inplace=True)
-            st.success(f"Filled missing values with {value}")     
+            st.success(f"Filled missing values with {value}") 
+
+    st.divider()
     
     # Drop columns
     cols_to_drop = st.pills("Drop columns", dataset.columns, selection_mode="multi")
