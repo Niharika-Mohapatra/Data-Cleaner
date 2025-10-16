@@ -186,6 +186,8 @@ if st.session_state.step2_bool:
         dataset.drop(columns=cols_to_drop, inplace=True)
         st.success(f"Dropped columns: {cols_to_drop}")
 
+    st.divider()
+
     # Filter rows
     filter_col = st.pills("Select column to filter", list(dataset.columns), selection_mode="single")
     
@@ -197,8 +199,9 @@ if st.session_state.step2_bool:
             dataset = dataset[dataset[filter_col].isin(selected_vals)]
             st.success(f"Filtered {filter_col} for selected values.")
 
+    st.divider()
     
-    st.button(label="Done", on_click= lambda: st.session_state.update(preview_bool=True))
+    st.button(label="Confirm changes", on_click= lambda: st.session_state.update(preview_bool=True))
     
     if st.session_state.preview_bool:
         st.subheader("Preview of cleaned data:")
