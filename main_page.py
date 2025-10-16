@@ -143,7 +143,7 @@ if st.session_state.step2_bool:
     st.divider()
 
     # Missing values
-    st.write("Pick an option for how to deal with missing values:")
+    st.write("2. Pick an option for how to deal with missing values:")
     missing_strat = st.selectbox(label="",
                                  options = ["Do nothing",
                                             "Drop rows with missing values",
@@ -180,6 +180,7 @@ if st.session_state.step2_bool:
     st.divider()
     
     # Drop columns
+    st.write("3. Do you want to drop any columns?")
     cols_to_drop = st.pills("Drop columns", dataset.columns, selection_mode="multi")
     
     if cols_to_drop:
@@ -188,8 +189,9 @@ if st.session_state.step2_bool:
 
     st.divider()
 
-    # Filter rows
-    filter_col = st.pills("Select column to filter", list(dataset.columns), selection_mode="single")
+    # Filter columns
+    st.write("4. Select column to filter")
+    filter_col = st.pills(label="", list(dataset.columns), selection_mode="single")
     
     if filter_col:
         col = filter_col[0]
