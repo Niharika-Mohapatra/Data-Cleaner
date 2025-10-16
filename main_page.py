@@ -143,7 +143,8 @@ if st.session_state.step2_bool:
     st.divider()
 
     # Missing values
-    missing_strat = st.selectbox("Handle missing values:",
+    st.write("Pick an option for how to deal with missing values:")
+    missing_strat = st.selectbox(
                   ["Do nothing",
                   "Drop rows with missing values",
                   "Impute mean/median/mode",
