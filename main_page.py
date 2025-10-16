@@ -191,7 +191,7 @@ if st.session_state.step2_bool:
 
     # Filter columns
     st.write("4. Select column to filter")
-    filter_col = st.pills(label="", list(dataset.columns), selection_mode="single")
+    filter_col = st.pills("", list(dataset.columns), selection_mode="single")
     
     if filter_col:
         col = filter_col[0]
