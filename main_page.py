@@ -184,7 +184,8 @@ if st.session_state.step2_bool:
     # Filter rows
     filter_col = st.pills("Select column to filter", list(dataset.columns), selection_mode="single")
     
-    if filter_col != "None":
+    if filter_col:
+        col = filter_col[0]
         selected_vals = st.multiselect("Select values to keep", dataset[filter_col].dropna().unique())
         
         if selected_vals:
