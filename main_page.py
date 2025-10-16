@@ -138,7 +138,7 @@ if st.session_state.step2_bool:
             dataset = dataset.drop_duplicates()
             after_dupes = len(dataset)
             st.session_state.dataset = dataset
-            st.write(f"{before_dupes - after_dupes} duplicate values successfully removed!")
+            st.success(f"{before_dupes - after_dupes} duplicate values successfully removed!")
 
     # Missing values
     missing_strat = st.selectbox("Handle missing values:",
