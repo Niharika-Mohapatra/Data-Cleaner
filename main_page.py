@@ -206,6 +206,7 @@ if st.session_state.step2_bool:
     st.write("4. Select column to filter")
     temp4 = temp1
     filter_col = st.pills("", list(temp4.columns), selection_mode="single")
+    selected_vals = []
     
     if filter_col:
         col = filter_col[0]
