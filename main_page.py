@@ -212,10 +212,10 @@ if st.session_state.step2_bool:
         selected_vals = st.multiselect("Select values to keep", temp4[filter_col].dropna().unique())
     temp4 = temp1
     
-        if selected_vals:
-            temp4 = temp4[temp4[filter_col].isin(selected_vals)]
-            st.success(f"Filtered {filter_col} for selected values.")
-        temp4 = temp1
+    if selected_vals:
+        temp4 = temp4[temp4[filter_col].isin(selected_vals)]
+        st.success(f"Filtered {filter_col} for selected values.")
+    temp4 = temp1
 
     temp1 = temp4
     st.divider()
