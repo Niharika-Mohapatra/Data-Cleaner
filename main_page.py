@@ -137,13 +137,13 @@ if st.session_state.step2_bool:
             before_dupes = len(dataset)
             dataset = dataset.drop_duplicates()
             after_dupes = len(dataset)
-            st.session_state.dataset = dataset
             st.success(f"{before_dupes - after_dupes} duplicate values successfully removed!")
      
     st.divider()
 
-    # Missing values
+    # Missing valuees
     st.write("2. Pick an option for how to deal with missing values:")
+    temp1 = dataset
     missing_strat = st.selectbox(label="",
                                  options = ["Do nothing",
                                             "Drop rows with missing values",
@@ -151,70 +151,79 @@ if st.session_state.step2_bool:
                                              "Fill with custom value"])
     
     if missing_strat == "Drop rows with missing values":
-        dataset = st.session_state.dataset.copy()
-        dataset.dropna(inplace=True)
+        temp1 = dataset
+        temp1 = temp1.dropna(inplace=True)
         st.success("Dropped rows with missing values")
     
     elif missing_strat == "Impute mean/median/mode":
-        dataset = st.session_state.dataset.copy()
+        temp1 = dataset
         method = st.radio("Select method:", ["Mean", "Median", "Mode"])
         
         for col in dataset.select_dtypes(include=[np.number]).columns:
+            temp2 = temp1
             
             if method == "Mean":
-                dataset = st.session_state.dataset.copy()
-                dataset[col].fillna(dataset[col].mean(), inplace=True)
+                temp2 = temp1
+                temp2 = temp2[col].fillna(temp2[col].mean(), inplace=True)
             
             elif method == "Median":
-                dataset = st.session_state.dataset.copy()
-                dataset[col].fillna(dataset[col].median(), inplace=True)
+                temp2 = temp1
+                temp2 = temp2[col].fillna(temp2[col].median(), inplace=True)
             
             elif method == "Mode":
-                dataset = st.session_state.dataset.copy()
-                dataset[col].fillna(dataset[col].mode(), inplace=True)
+                temp2 = temp1
+                temp2 = temp2[col].fillna(temp2[col].mode(), inplace=True)
         
         st.success(f"Filled missing values with {method.lower()} values.")
+        temp1 = temp2
     
     elif missing_strat == "Fill with custom value":
-        dataset = st.session_state.dataset.copy()
         value = st.text_input("Enter value:")
+        temp1 = dataset
         
         if value:
-            dataset = st.session_state.dataset.copy()
-            dataset.fillna(value, inplace=True)
+            temp1 = temp1.fillna(value, inplace=True)
             st.success(f"Filled missing values with {value}") 
+        temp1 = dataset
 
     st.divider()
     
     # Drop columns
     st.write("3. Do you want to drop any columns?")
-    cols_to_drop = st.pills("Drop columns", dataset.columns, selection_mode="multi")
+    temp3 = temp1
+    cols_to_drop = st.pills("Drop columns", temp3.columns, selection_mode="multi")
     
     if cols_to_drop:
-        dataset = st.session_state.dataset.copy()
-        dataset.drop(columns=cols_to_drop, inplace=True)
+        temp3 = temp3.drop(columns=cols_to_drop, inplace=True)
         st.success(f"Dropped columns: {cols_to_drop}")
+    temp3 = temp1
 
+    temp1 = temp3
     st.divider()
+    
 
     # Filter columns
     st.write("4. Select column to filter")
-    filter_col = st.pills("", list(dataset.columns), selection_mode="single")
+    temp4 = temp1
+    filter_col = st.pills("", list(temp4.columns), selection_mode="single")
     
     if filter_col:
-        dataset = st.session_state.dataset.copy()
         col = filter_col[0]
-        selected_vals = st.multiselect("Select values to keep", dataset[filter_col].dropna().unique())
-        
+        selected_vals = st.multiselect("Select values to keep", temp4[filter_col].dropna().unique())
+    temp4 = temp1
+    
         if selected_vals:
-            dataset = dataset[dataset[filter_col].isin(selected_vals)]
+            temp4 = temp4[temp4[filter_col].isin(selected_vals)]
             st.success(f"Filtered {filter_col} for selected values.")
+        temp4 = temp1
 
+    temp1 = temp4
     st.divider()
     
     st.button(label="Confirm changes", on_click= lambda: st.session_state.update(preview_bool=True))
     
     if st.session_state.preview_bool:
+        dataset = temp1
         st.subheader("Preview of cleaned data:")
         st.dataframe(dataset.head())
 
