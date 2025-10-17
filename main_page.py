@@ -151,29 +151,36 @@ if st.session_state.step2_bool:
                                              "Fill with custom value"])
     
     if missing_strat == "Drop rows with missing values":
+        dataset = st.session_state.dataset.copy()
         dataset.dropna(inplace=True)
         st.success("Dropped rows with missing values")
     
     elif missing_strat == "Impute mean/median/mode":
+        dataset = st.session_state.dataset.copy()
         method = st.radio("Select method:", ["Mean", "Median", "Mode"])
         
         for col in dataset.select_dtypes(include=[np.number]).columns:
             
             if method == "Mean":
+                dataset = st.session_state.dataset.copy()
                 dataset[col].fillna(dataset[col].mean(), inplace=True)
             
             elif method == "Median":
+                dataset = st.session_state.dataset.copy()
                 dataset[col].fillna(dataset[col].median(), inplace=True)
             
             elif method == "Mode":
+                dataset = st.session_state.dataset.copy()
                 dataset[col].fillna(dataset[col].mode(), inplace=True)
         
         st.success(f"Filled missing values with {method.lower()} values.")
     
     elif missing_strat == "Fill with custom value":
+        dataset = st.session_state.dataset.copy()
         value = st.text_input("Enter value:")
         
         if value:
+            dataset = st.session_state.dataset.copy()
             dataset.fillna(value, inplace=True)
             st.success(f"Filled missing values with {value}") 
 
@@ -184,6 +191,7 @@ if st.session_state.step2_bool:
     cols_to_drop = st.pills("Drop columns", dataset.columns, selection_mode="multi")
     
     if cols_to_drop:
+        dataset = st.session_state.dataset.copy()
         dataset.drop(columns=cols_to_drop, inplace=True)
         st.success(f"Dropped columns: {cols_to_drop}")
 
@@ -194,6 +202,7 @@ if st.session_state.step2_bool:
     filter_col = st.pills("", list(dataset.columns), selection_mode="single")
     
     if filter_col:
+        dataset = st.session_state.dataset.copy()
         col = filter_col[0]
         selected_vals = st.multiselect("Select values to keep", dataset[filter_col].dropna().unique())
         
